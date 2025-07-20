@@ -1,9 +1,8 @@
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.zip.DataFormatException;
-import java.util.zip.Inflater;
+import utils.CatFile;
+import utils.HashObject;
 
 public class Main {
   public static void main(String[] args){
@@ -26,35 +25,12 @@ public class Main {
         }
       }
       case "cat-file" -> {
-        // get the object hash from the command line arguments
-        final String objectHash = args[2];
-        final String objectFolder = objectHash.substring(0, 2);
-        final String objectFile = objectHash.substring(2);
-        try {
-          // read the object file from the .git/objects directory
-          byte[] data = Files.readAllBytes(new File(".git/objects/" + objectFolder + "/" + objectFile).toPath());
-          // decompress the data using zlib
-          Inflater inflater = new Inflater();
-          inflater.setInput(data);
-          // create a ByteArrayOutputStream to hold the decompressed data
-          try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length)){
-            byte[] buffer = new byte[1024];
-            while (!inflater.finished()) {
-              int count = inflater.inflate(buffer);
-              outputStream.write(buffer, 0, count);
-            }
-            // print the decompressed data
-            String decompressedData = outputStream.toString("UTF-8");
-            int start = decompressedData.indexOf('\0');
-            System.out.print(decompressedData.substring(start+1));
-          } catch (DataFormatException e) {
-            throw new RuntimeException(e);
-          } finally {
-            inflater.end();
-          }
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
+        CatFile catFile = new CatFile();
+        catFile.runCatFile(args);
+      }
+      case ("hash-object") -> {
+        HashObject hashObject = new HashObject();
+        hashObject.runHashObject(args);
       }
       default -> System.out.println("Unknown command: " + command);
     }
