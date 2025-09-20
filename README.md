@@ -1,60 +1,99 @@
-[![progress-banner](https://backend.codecrafters.io/progress/git/ecd5d488-db33-44f1-9860-25f61d098906)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
+# Git-Like Version Control System (Java)
 
-This is a starting point for Java solutions to the
-["Build Your Own Git" Challenge](https://codecrafters.io/challenges/git).
+This project is my implementation of a simplified version of **Git** built in Java.  
+It is inspired by the ["Build Your Own Git" Challenge](https://codecrafters.io/challenges/git), but all the coding, debugging, and feature implementation here has been done by me.
 
-In this challenge, you'll build a small Git implementation that's capable of
-initializing a repository, creating commits and cloning a public repository.
-Along the way we'll learn about the `.git` directory, Git objects (blobs,
-commits, trees etc.), Git's transfer protocols and more.
+Git is a version control system used to track changes in source code. In this project, I’ve built a minimal Git clone that can initialize repositories, create commits, and even clone a public GitHub repository.
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[codecrafters.io](https://codecrafters.io) to try the challenge.
+---
 
-# Passing the first stage
+## 🚀 Features Implemented
 
-The entry point for your Git implementation is in `src/main/java/Main.java`.
-Study and uncomment the relevant code, and push your changes to pass the first
-stage:
+- **Initialize a repository** (`.git` directory structure)
+- **Read blob objects** (understand how Git stores file content)
+- **Create blob objects** (write your own file snapshots)
+- **Read tree objects** (track directory contents)
+- **Write tree objects** (store snapshots of directory structure)
+- **Create commits** (link blobs and trees into a commit history)
+- **Clone a repository** (fetch data from a remote GitHub repository)
 
-```sh
-git commit -am "pass 1st stage" # any msg
-git push origin master
-```
+---
 
-That's all!
+## 🛠️ Requirements
 
-# Stage 2 & beyond
+- **Java 17+** (LTS recommended)
+- **Maven** (to manage dependencies and build the project)
 
-Note: This section is for stages 2 and beyond.
+---
 
-1. Ensure you have `mvn` installed locally
-1. Run `./your_program.sh` to run your Git implementation, which is implemented
-   in `src/main/java/Main.java`.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
+## ▶️ How to Run
 
-# Testing locally
+1. Clone this repository:
+   ```bash
+   git clone git@github.com:tulsyanlakshya009/git-like-version-control-system.git
+   cd git-like-version-control-system
+   ```
 
-The `your_program.sh` script is expected to operate on the `.git` folder inside
-the current working directory. If you're running this inside the root of this
-repository, you might end up accidentally damaging your repository's `.git`
-folder.
+2. Compile and run using the provided script:
 
-We suggest executing `your_program.sh` in a different folder when testing
-locally. For example:
+   ```bash
+   ./your_program.sh
+   ```
 
-```sh
-mkdir -p /tmp/testing && cd /tmp/testing
-/path/to/your/repo/your_program.sh init
-```
+3. Example: Initialize a new repo in a safe test directory
 
-To make this easier to type out, you could add a
-[shell alias](https://shapeshed.com/unix-alias/):
+   ```bash
+   mkdir -p /tmp/testing && cd /tmp/testing
+   /path/to/your/repo/your_program.sh init
+   ```
 
-```sh
-alias mygit=/path/to/your/repo/your_program.sh
+   Or, to make it easier, add an alias:
 
-mkdir -p /tmp/testing && cd /tmp/testing
-mygit init
-```
+   ```bash
+   alias mygit=/path/to/your/repo/your_program.sh
+   mkdir -p /tmp/testing && cd /tmp/testing
+   mygit init
+   ```
+
+---
+
+## 🧪 Testing
+
+To test features without corrupting this repository’s own `.git` folder:
+
+1. Create a new directory:
+
+   ```bash
+   mkdir /tmp/git-test && cd /tmp/git-test
+   ```
+
+2. Run your Git commands from there:
+
+   ```bash
+   /path/to/your/repo/your_program.sh init
+   ```
+
+   Example workflow:
+
+   * Initialize: `mygit init`
+   * Add blob: `mygit hash-object <file>`
+   * Write tree: `mygit write-tree`
+   * Commit: `mygit commit`
+   * Clone: `mygit clone <repo-url>`
+
+---
+
+## 📚 Learning Outcomes
+
+* Internals of the `.git` directory
+* How Git represents data using **objects** (blobs, trees, commits)
+* Basics of Git’s **plumbing commands**
+* How cloning and commits actually work under the hood
+
+---
+
+## 📝 License
+
+This project is for educational purposes. Feel free to explore and adapt the code.
+
+
